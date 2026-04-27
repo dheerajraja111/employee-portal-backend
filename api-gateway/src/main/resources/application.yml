@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+            - id: employee-profile-route
+              uri: http://localhost:8081
+              predicates:
+                - Path=/api/employees/**
+            - id: compensation-route
+                     - uri: http://localhost:8082
+                     - predicates:
+                     - Path=/api/compensation/**
+
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.web: DEBUG

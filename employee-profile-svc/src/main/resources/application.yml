@@ -1,0 +1,26 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: employee-profile-svc
+
+  # H2 Database configuration
+  datasource:
+    url: jdbc:h2:mem:employeedb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+
+  # JPA/Hibernate properties: DDL-auto will auto create the table by seeing the entities
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true  # will print the sql queries on console for debugging
+
+  # Enable h2 console
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
