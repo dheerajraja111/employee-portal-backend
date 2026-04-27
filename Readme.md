@@ -1,18 +1,28 @@
-# EmployeeProfileSvcApplication.java
-    - Isme ek annotation hota hai: @SpringBootApplication
-    - Yeh @SpringBootApplication annotation ek jadoo ki tarah hai. Jab aap is file ko run karte hain, toh Spring Boot automatically embedded Tomcat server start kar deta hai (default port 8080 par), saari configurations load kar leta hai, aur aapki application ko ready kar deta hai. Aapko server setup ka koi code nahi likhna padta.
-    - Express mein aap usually routes, controllers, aur models banate the. Yahan standard architecture yeh follow hoti hai:
-    - Controllers (@RestController): API endpoints define karte hain (e.g., GET /api/employees/{id}).
-    - Services (@Service): Business logic yahan likhi jati hai. Controller request receive karke Service ko pass karta hai.
-    - Repositories (@Repository): Database queries yahan hoti hain (Spring Data JPA automatically queries generate kar deta hai).
-    - Entities (@Entity): Yeh aapke database table ka Java object representation hai (jaise Mongoose schema).
+### **EmployeeProfileSvcApplication.java**
 
-    - Concepts Explained: Gateway vs Orchestrator
-    - Routing (Predicates): Node/Express mein aap app.use('/api', proxy...) likhte the. Spring Gateway mein hum Predicates use karte hain. Jaise upar wale code mein, agar request /api/employees/ se shuru hogi, toh gateway use automatic port 8081 par bhej dega.
-    - Filters: Gateway mein aap request ko modify bhi kar sakte hain (jaise Auth headers add karna) bina backend service ko touch kiye.
-    - Non-Blocking: Spring Cloud Gateway "Netty" server use karta hai (just like Node.js), isliye ye asynchronous aur non-blocking hota hai, jo high traffic handle karne ke liye best hai.
+* It contains an annotation: `@SpringBootApplication`
 
-    - @Entity batata hai ki yeh ek DB table hai, aur @Id primary key define karta hai. Lombok (@Getter, @Setter) aapke code ko clean rakhta hai kyunki aapko manually getters/setters nahi likhne padte.
+* This `@SpringBootApplication` annotation works like magic. When you run this file, Spring Boot automatically starts an embedded Tomcat server (by default on port 8080), loads all configurations, and gets your application ready. You don’t have to write any code to set up the server.
 
-    - Spring Data JPA mein aapko SELECT * FROM... likhne ki zaroorat nahi hai. Sirf JpaRepository extend karne se hi aapko saare standard DB operations mil jate hain.
+* In Express, you usually create routes, controllers, and models. Here, the standard architecture follows this pattern:
 
+    * **Controllers (`@RestController`)**: Define API endpoints (e.g., `GET /api/employees/{id}`)
+    * **Services (`@Service`)**: Business logic is written here. The controller receives the request and passes it to the service.
+    * **Repositories (`@Repository`)**: Database queries are handled here (Spring Data JPA automatically generates queries)
+    * **Entities (`@Entity`)**: This is the Java object representation of your database table (similar to a Mongoose schema)
+
+---
+
+### **Concepts Explained: Gateway vs Orchestrator**
+
+* **Routing (Predicates):** In Node/Express, you write something like `app.use('/api', proxy...)`. In Spring Gateway, we use *Predicates*. For example, if a request starts with `/api/employees/`, the gateway automatically forwards it to port 8081.
+
+* **Filters:** In the gateway, you can modify requests (e.g., adding authentication headers) without touching the backend service.
+
+* **Non-Blocking:** Spring Cloud Gateway uses the "Netty" server (similar to Node.js), making it asynchronous and non-blocking, which is ideal for handling high traffic.
+
+---
+
+* `@Entity` indicates that the class represents a database table, and `@Id` defines the primary key. Lombok annotations (`@Getter`, `@Setter`) keep your code clean by removing the need to manually write getters and setters.
+
+* In Spring Data JPA, you don’t need to write queries like `SELECT * FROM...`. By simply extending `JpaRepository`, you get all standard database operations automatically.
